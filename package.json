@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "vite dev --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1",
-    "start": "node build",
+    "preview": "wrangler dev --ip 127.0.0.1",
+    "start": "wrangler dev --ip 127.0.0.1",
+    "check:worker": "wrangler deploy --dry-run",
+    "cf:typegen": "wrangler types worker-configuration.d.ts",
     "prepare": "svelte-kit sync",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "node --test tests/*.test.js"
@@ -14,14 +16,15 @@
   "engines": { "node": ">=22.17" },
   "dependencies": { "three": "0.187.0" },
   "devDependencies": {
-    "@sveltejs/adapter-node": "6.0.1",
+    "@sveltejs/adapter-cloudflare": "8.0.2",
     "@sveltejs/kit": "3.1.1",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@types/three": "^0.187.0",
     "svelte": "5.57.3",
     "svelte-check": "4.7.7",
     "typescript": "^6.0.3",
-    "vite": "8.3.5"
+    "vite": "8.3.5",
+    "wrangler": "4.157.0"
   },
   "imports": { "#lib": "./src/lib/index.js", "#lib/*": "./src/lib/*" }
 }

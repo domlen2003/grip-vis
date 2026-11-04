@@ -2,6 +2,8 @@
 
 Prepared on 2026-11-04 for `domlen2003/grip-vis`.
 
+This records the initial clean-copy commit `ec30448`. Subsequent Cloudflare deployment preparation is documented in the [deployment guide](cloudflare-deployment.md) and [verification record](../verification.md); it changes the build adapter and deployment configuration while preserving the application behavior.
+
 The SvelteKit application is at the repository root. Application source, configuration, dependency lockfile and retained test fixtures were copied without runtime changes. The original working folder was left intact.
 
 Included notes cover requirements, design, force conventions, simulator integration research, timestamped video analysis, outline provenance, the Windows/SimHub roadmap and the draft AI setup-engineering skill. Relative links were updated for the standalone layout.

@@ -1,5 +1,20 @@
 # Local SvelteKit verification
 
+## Cloudflare preparation — 2026-11-04
+
+The application now builds with `@sveltejs/adapter-cloudflare` 8.0.2 and Wrangler 4.157.0. GitHub's default branch is `main`. `wrangler.jsonc` contains the build command, Worker entry, assets binding and `grip.dominiklenz.com` Custom Domain; `.nvmrc` selects Node 24.
+
+- Svelte/TypeScript checks: 0 errors and 0 warnings; all 47 model/diagram tests passed.
+- Deleted generated SvelteKit output, then ran the packaging dry run with `CI=1` and `WORKERS_CI=1`. Wrangler invoked the configured build and successfully generated/packaged the Worker from scratch without a separate pre-build step.
+- The dry run reported a 354.25 KiB Worker (85.23 KiB compressed) and the `ASSETS` binding. The existing lazy Three.js client-chunk size advisory remains.
+- Ran Wrangler's local Workers runtime on loopback. The app returned HTTP 200; `/_worker.js` returned HTTP 404, with server files excluded by the generated `.assetsignore`.
+- Browser verification confirmed hydration, changing scenario inputs and the rendered WebGL 3D explainer. Browser console: no errors or warnings. The dedicated Playwright browser profile was occupied, so the in-app browser was used for these checks.
+- No Worker was uploaded and no domain or DNS settings were changed during local verification. The GitHub connection will perform deployment; see the [deployment guide](docs/cloudflare-deployment.md).
+
+The earlier Node-adapter record below is retained as implementation history.
+
+## Original application checks — 2026-10-30
+
 Checked 2026-10-30 on Node 24.10.0. This records software checks, not vehicle calibration or simulator integration.
 
 ## Automated checks

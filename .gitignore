@@ -7,6 +7,10 @@ dist/
 !.env.example
 .DS_Store
 .openai/
+.wrangler/
+.dev.vars
+.dev.vars.*
+worker-configuration.d.ts
 *.tar.gz
 *.log
 .playwright-mcp/

@@ -6,7 +6,7 @@ The [browser prototype](../README.md) uses a fictional generic car. Its tyre env
 
 The current finite player supports synthetic clips (including a Daytona-style chicane), play/pause, scrubbing and `setup-lab-scenario` version 1 control-trace JSON import. Imported speed/throttle/brake/steering remains input to the generic evaluator, even when declared recorded. This does not implement raw `.ibt` ingestion or the observed-channel capture/replay proposed below.
 
-Work from local source only. The web app uses SvelteKit 3.1.1, Svelte 5.57.3, Vite 8.3.5, Three.js 0.187, TypeScript 6 and adapter-node 6.0.1. Use Node.js 22.17 or newer; Node.js 24 is recommended. Sites, hosting configuration, publishing and source pushes are outside this task.
+Work from local source only. The web app uses SvelteKit 3.1.1, Svelte 5.57.3, Vite 8.3.5, Three.js 0.187, TypeScript 6 and the Cloudflare adapter. See [Cloudflare deployment](cloudflare-deployment.md) for the current hosting configuration. Use Node.js 22.17 or newer; Node.js 24 is recommended. Sites, hosting configuration, publishing and source pushes are outside this task.
 
 ## Delivery order and boundaries
 
@@ -114,7 +114,7 @@ Fit only supported relationships and record units, parameter uncertainty and ide
 ## Next agent kickoff
 
 1. Read this roadmap and the linked research/skill; inspect the repository and local instructions. Preserve the prototype's illustrative labels.
-2. Establish the Windows working copy. In the repository root, use `npm ci`, `npm run check`, `npm test` and `npm run build`. `npm run dev` runs Vite at `127.0.0.1`; `npm run preview` previews the build; `npm start` runs adapter-node's `node build`. For Windows production-mode local use, set `$env:HOST = '127.0.0.1'` before `npm start`.
+2. Establish the Windows working copy. In the repository root, use `npm ci`, `npm run check`, `npm test` and `npm run build`. `npm run dev` runs Vite at `127.0.0.1`; `npm run preview` and `npm start` build and serve the app through the local Cloudflare Workers runtime. Hosting uses the GitHub-connected `main` branch; see [Cloudflare deployment](cloudflare-deployment.md).
 3. Read-only PowerShell discovery can begin with `Get-Location`, `Get-Command dotnet,msbuild -ErrorAction SilentlyContinue`, and `Get-Process SimHub* -ErrorAction SilentlyContinue | Select-Object ProcessName,Path`.
 4. After verifying the installation location, assign `$simHubInstall` to that actual path. Inspect samples with `Get-ChildItem -LiteralPath $simHubInstall -Recurse -Filter *.csproj` and `Get-ChildItem -LiteralPath $simHubInstall -Recurse -Filter *.sln`. Inspect project contents before choosing a build command.
 5. Save `captures/audit/environment.json`, SDK/sample findings, property export, native live/IBT inventories and `capabilities.json`. Then implement contract fixtures and replay before requesting a plugin deployment/configuration change.

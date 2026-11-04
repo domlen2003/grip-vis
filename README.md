@@ -1,10 +1,10 @@
 # Grip Vis — setup dynamics sandbox
 
-A local SvelteKit 3/Svelte 5 application inspired by the archived grip visualization, with Three.js explanation popups. **Illustrative generic GT response; no simulator connected or measured grip reserve. Imported recorded controls do not validate the model.** This repository contains the local application and its development/research notes.
+A SvelteKit 3/Svelte 5 application inspired by the archived grip visualization, with Three.js explanation popups. It runs locally and is configured for Cloudflare Workers at `grip.dominiklenz.com`. **Illustrative generic GT response; no simulator connected or measured grip reserve. Imported recorded controls do not validate the model.** This repository contains the application and its development/research notes.
 
 ## Run locally
 
-Install Node.js 22.17 or newer. From the repository root, on Windows, macOS or Linux:
+Use Node.js 24 LTS, as selected by `.nvmrc` (the project requires Node.js 22.17 or newer). From the repository root, on Windows, macOS or Linux:
 
 ```sh
 npm ci
@@ -23,21 +23,21 @@ npm run build
 
 `check` runs SvelteKit synchronization and Svelte/TypeScript checking. `test` runs the model and diagram helper suites. See [verification.md](verification.md) for recorded commands, test counts and outcomes.
 
-After building, run the Node adapter output locally:
+Preview the Cloudflare Worker locally:
 
 ```sh
-HOST=127.0.0.1 PORT=4173 npm start
+npm run preview -- --port 4173
 ```
 
-In PowerShell, set the environment variables first:
+`npm run preview` and `npm start` both run Wrangler's local Workers runtime, bound to `127.0.0.1`. Wrangler runs the build configured in `wrangler.jsonc` first. These commands do not require Cloudflare login. Development, Worker preview and deployed behavior are separate checks; a successful model test run does not establish that all three have been verified.
 
-```powershell
-$env:HOST = '127.0.0.1'
-$env:PORT = '4173'
-npm start
-```
+## Deploy to Cloudflare
 
-`npm start` runs `node build`; it requires a successful build. `npm run preview -- --port 4173` is also available for a local Vite preview. Development, preview and production startup are separate checks; a successful model test run does not establish that all three have been verified.
+Connect `domlen2003/grip-vis` to Cloudflare Workers Builds once, using `main` as the production branch. Keep Cloudflare's default deployment workflow and leave the optional separate build step empty: `wrangler.jsonc` already defines the application build, Worker entry point, static assets and Custom Domain `grip.dominiklenz.com`. `.nvmrc` selects Node.js 24. After connection, each push to `main` builds and deploys automatically.
+
+Preparing these files does not publish the app or change DNS. See [Cloudflare deployment](docs/cloudflare-deployment.md) for domain prerequisites and the automatic deployment flow. `npm run check:worker` checks Worker packaging locally without publishing.
+
+Sessions remain in browser storage. Use **Export session** locally, then **Import session** on the deployed hostname to move a saved session between origins.
 
 ## What works
 
@@ -67,9 +67,11 @@ npm start
 | `src/lib/model.js` | Pure illustrative evaluator, mechanical/aero decomposition, finite scenario sampling and import/session validation |
 | `tests/model.test.js` | Model invariants, capacity decomposition, scenario sampling and import/session contracts |
 | `tests/diagram.test.js` | Force signs/observers, clipping, capacity scale, steering, aero projection/bounds and spring-attachment tests |
-| `vite.config.ts` | SvelteKit, Svelte rune compilation and Node adapter configuration |
+| `vite.config.ts` | SvelteKit, Svelte rune compilation and Cloudflare adapter configuration |
+| `wrangler.jsonc` | Application build, Worker entry point, static assets, runtime compatibility and Custom Domain |
+| `.nvmrc` | Node.js 24 for local tooling and Cloudflare builds |
 
-SvelteKit provides the application/build structure and Three.js provides the client-side 3D scenes. No server API or telemetry integration is implemented. Raw videos, captions, transcripts, reference photographs and PDFs are excluded; the notes retain their original source links. The lockfile records the dependencies used by `npm ci`; generated `build/` output is not the source project.
+SvelteKit provides the application/build structure and Three.js provides the client-side 3D scenes. No database, authentication, server capture API or telemetry integration is implemented. Raw videos, captions, transcripts, reference photographs and PDFs are excluded; the notes retain their original source links. The lockfile records the dependencies used by `npm ci`; generated `.svelte-kit/cloudflare/` output is not the source project.
 
 ## Model assumptions and limits
 

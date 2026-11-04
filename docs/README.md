@@ -3,6 +3,7 @@
 - [Requirements and scope](project-brief.md).
 - [Design draft](design-draft.md) and [design review](design-review.md).
 - [Force conventions](force-conventions.md).
+- [Cloudflare Workers deployment](cloudflare-deployment.md), automatic deployment from GitHub, local preview and Custom Domain prerequisites.
 - [Windows SimHub/iRacing roadmap](windows-sim-agent-roadmap.md).
 - [Prototype verification](../verification.md) and [clean-copy checks](clean-copy.md).
 - [iRacing feasibility](../research/iracing-feasibility.md), [SimHub integration](../research/simhub-integration.md), and [LMU reference](../research/lmu-reference.md).
