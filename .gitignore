@@ -1,0 +1,14 @@
+node_modules/
+.svelte-kit/
+build/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+.openai/
+*.tar.gz
+*.log
+.playwright-mcp/
+coverage/
+tests/browser-session.json

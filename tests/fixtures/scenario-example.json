@@ -1,0 +1,15 @@
+{
+  "kind": "setup-lab-scenario",
+  "schemaVersion": 1,
+  "title": "Synthetic brake and release example",
+  "source": {
+    "kind": "synthetic",
+    "notes": "Hand-authored example controls. Not a recorded lap or measured car response."
+  },
+  "samples": [
+    { "time": 0, "speed": 160, "throttle": 30, "brake": 0, "steering": 0, "phase": "Approach" },
+    { "time": 2, "speed": 140, "throttle": 0, "brake": 70, "steering": 5, "phase": "Braking" },
+    { "time": 4, "speed": 100, "throttle": 0, "brake": 10, "steering": 25, "phase": "Apex" },
+    { "time": 8, "speed": 150, "throttle": 85, "brake": 0, "steering": 2, "phase": "Exit" }
+  ]
+}
